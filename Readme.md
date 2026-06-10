@@ -14,7 +14,7 @@ Welcome to my study repository! This space was created to track my coding progre
 
 
 
-All problem statements, challenges, and base codes in this repository were sourced from the \*\*\[w3resource](https://w3resource.com)\*\* platform. 
+All problem statements, challenges, and base codes in this repository were sourced from the https://w3resource.com platform. 
 
 
 
