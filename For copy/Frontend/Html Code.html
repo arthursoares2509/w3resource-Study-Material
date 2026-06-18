@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic To-Do App</title>
+  
+  <!-- CSS STYLING -->
+  <style>
+    /* Reset and layout basics */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* App container card */
+    .todo-container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Input section */
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2ecc71;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    /* Task list items */
+    ul {
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    li:hover {
+      background: #f1f1f1;
+    }
+
+    /* Strikethrough for completed items */
+    li.completed span {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 3px;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML STRUCTURE -->
+  <div class="todo-container">
+    <h2>My To-Do List</h2>
+    
+    <div class="input-area">
+      <input type="text" id="taskInput" placeholder="Add a new task..." />
+      <button onclick="addTask()">Add</button>
+    </div>
+
+    <ul id="taskList">
+      <!-- Tasks will be inserted here dynamically -->
+    </ul>
+  </div>
+
+  <!-- JAVASCRIPT FUNCTIONALITY -->
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    // Add a new task
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      // Create list item element
+      const li = document.createElement('li');
+
+      // Create text container span
+      const span = document.createElement('span');
+      span.textContent = taskText;
+      li.appendChild(span);
+
+      // Toggle item completion on text click
+      li.addEventListener('click', function() {
+        li.classList.toggle('completed');
+      });
+
+      // Create delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+      deleteBtn.className = 'delete-btn';
+      
+      // Stop event bubbling so clicking delete doesn't toggle "completed"
+      deleteBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        li.remove();
+      });
+
+      li.appendChild(deleteBtn);
+
+      // Append new item to the list
+      taskList.appendChild(li);
+
+      // Clear the input box
+      taskInput.value = "";
+    }
+
+    // Allow pressing "Enter" key to add tasks
+    taskInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        addTask();
+      }
+    });
+  </script>
+
+</body>
+</html>
